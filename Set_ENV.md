@@ -15,8 +15,11 @@ Currently, we only support math sdpa, pls add code ‘from torch.nn.attention im
 ‘            with sdpa_kernel([SDPBackend.MATH]):’  in line 469
 
 Install BNB
+
 git clone https://github.com/xiaolil1/bitsandbytes/tree/main
 
 cmake -DCOMPUTE_BACKEND=xpu -S .
+
 make
+
 pip install -e .
