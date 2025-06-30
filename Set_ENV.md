@@ -1,7 +1,7 @@
 # Install unsloth
 git clone https://github.com/unslothai/unsloth.git
 
-git checkout zhenyuan_linux_27
+for QLoRA pls merge pr: https://github.com/unslothai/unsloth/pull/2840
 
 Build: python -m build
 
@@ -13,11 +13,11 @@ git clone https://github.com/unslothai/unsloth-zoo
 Build: python -m build
 
 Install: pip install /dist/xxx.tar.gz
-# Pytorch changes for torch2.7
+# Pytorch changes for torch
 PyTorch need related changes forced using math sdpa, pls refer to https://github.com/leizhenyuan/pytorch/pull/1
 
 Currently, we only support math sdpa, pls add code ‘from torch.nn.attention import SDPBackend, sdpa_kernel’ within unsloth/models/llama.py in line 28, and 
-‘            with sdpa_kernel([SDPBackend.MATH]):’  in line 469
+‘            with sdpa_kernel([SDPBackend.MATH]):’  in line 526
 
 # Install BNB for qlora
 
