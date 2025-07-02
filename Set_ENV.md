@@ -1,7 +1,8 @@
 # Install unsloth
 git clone https://github.com/unslothai/unsloth.git
 
-for QLoRA pls merge pr: https://github.com/unslothai/unsloth/pull/2840
+for unsloth build system variance, pls use zhenyuan_linux_27 branch for development
+pls refer to repo: https://github.com/leizhenyuan/unsloth
 
 Build: python -m build
 
