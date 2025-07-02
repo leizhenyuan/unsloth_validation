@@ -22,7 +22,7 @@ Currently, we only support math sdpa, pls add code ‘from torch.nn.attention im
 
 # Install BNB for qlora
 
-git clone https://github.com/xiaolil1/bitsandbytes/tree/main
+git clone https://github.com/xiaolil1/bitsandbytes
 
 cmake -DCOMPUTE_BACKEND=xpu -S .
 
