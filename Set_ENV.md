@@ -6,7 +6,7 @@ pls refer to repo: https://github.com/leizhenyuan/unsloth
 
 Build: python -m build
 
-Install: pip install ./dist/xxx.tar.gz"[intel-gpu-torch270]"
+Install: pip install ./dist/xxx.tar.gz"[intel-gpu-torch270]" --no-deps
 # Install unsloth-zoo
 
 git clone https://github.com/unslothai/unsloth-zoo
