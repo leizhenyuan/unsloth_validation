@@ -64,19 +64,21 @@ def sft(args):
         max_seq_length=args.max_seq_length,
         dtype=dtype,
         load_in_4bit= True if args.qlora else False,  # 使用4bit量化
+        full_finetuning = True if args.full_finetune else False,  # 是否进行全量微调
     )
 
     # 配置LoRA参数
-    model = FastLanguageModel.get_peft_model(
-        model,
-        r=args.lora_r,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-        lora_alpha=args.lora_alpha,
-        lora_dropout=0,
-        bias="none",
-        use_gradient_checkpointing="unsloth",
-        random_state=3407,
-    )
+    if args.lora or args.qlora:
+        model = FastLanguageModel.get_peft_model(
+            model,
+            r = args.lora_r,
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+            lora_alpha=args.lora_alpha,
+            lora_dropout=0,
+            bias="none",
+            use_gradient_checkpointing="unsloth",
+            random_state=3407,
+        )
 
     # 提示模板和数据处理
     alpaca_prompt = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
