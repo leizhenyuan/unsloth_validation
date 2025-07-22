@@ -52,6 +52,11 @@ def parser_args():
 
     return args
 
+def print_xpu_max_memory():
+    if torch.xpu.is_available():
+        max_memory = torch.xpu.max_memory_allocated('xpu')
+        print(f"{{'max_memory': {max_memory}}}")
+
 def sft(args):
     dtype_map = {
         "float16": torch.float16,
@@ -135,7 +140,7 @@ def sft(args):
         ),
     )
     trainer.train()
-
+    print_xpu_max_memory()
 
 def grpo(args):
     model, tokenizer = FastLanguageModel.from_pretrained(
@@ -292,6 +297,7 @@ def grpo(args):
     )
 
     trainer.train()
+    print_xpu_max_memory()
 
 if __name__ == "__main__":
     args = parser_args()
