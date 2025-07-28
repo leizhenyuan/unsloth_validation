@@ -52,10 +52,23 @@ def parser_args():
 
     return args
 
+
 def print_xpu_max_memory():
     if torch.xpu.is_available():
         max_memory = torch.xpu.max_memory_allocated('xpu')
         print(f"{{'max_memory': {max_memory}}}")
+    elif torch.cuda.is_available():
+        # 如果使用CUDA，则获取CUDA的最大内存分配
+        print(f"{{'max_memory': {torch.cuda.max_memory_allocated()}}}")
+        
+
+def reset_peak_memory_stats():
+    if torch.xpu.is_available():
+        torch.xpu.reset_peak_memory_stats()
+    elif torch.cuda.is_available():
+        # 如果使用CUDA，则重置CUDA的峰值内存统计
+        torch.cuda.reset_peak_memory_stats()
+
 
 def sft(args):
     dtype_map = {
@@ -113,6 +126,7 @@ def sft(args):
     dataset = load_dataset("yahma/alpaca-cleaned", split="train")
     dataset = dataset.map(formatting_prompts_func, batched=True)
 
+    reset_peak_memory_stats()
     # 配置训练器
     trainer = SFTTrainer(
         model=model,
@@ -282,6 +296,7 @@ def grpo(args):
         output_dir = "outputs",
     )
 
+    reset_peak_memory_stats()
     trainer = GRPOTrainer(
         model = model,
         processing_class = tokenizer,
